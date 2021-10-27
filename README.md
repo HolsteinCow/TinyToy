@@ -1,2 +1,2 @@
 # TinyToy
-Tiny ncurses based desktop toy
+A tiny ncurses based desktop toy
