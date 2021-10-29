@@ -14,9 +14,10 @@ typedef struct{
     short int bg_color;
 } attr;
 
-extern attr char_matrix[X_BOUND][Y_BOUND]
+extern attr matrix[X_BOUND][Y_BOUND]
 
 bool init_ui();
 void teardown_ui();
+void update_ui();
 
 #endif
