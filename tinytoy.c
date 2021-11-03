@@ -13,19 +13,21 @@ void display_loop(){
     init_display();
 
     for(int i = 0; i < TEST_CYCLE; i++){
-	buffer_drip();
-	show_drip();
-	usleep(TICK_DELAY);
+		buffer_disp();
+		show_disp();
+		usleep(TICK_DELAY);
     }
 }
 
 int main(int argc, char **argv){
+	
+
     if(!init_ui()){
 	fprintf(stderr ,"Error: init_ui() faliure, ui failed to initialize\n");
 	return EXIT_FAILURE;
     }
-
-    display_loop();
+    
+    update_ui();
 
     teardown_ui();
     return EXIT_SUCCESS;

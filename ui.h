@@ -4,6 +4,11 @@
 #define X_BOUND 200
 #define Y_BOUND 100
 
+typedef enum{ 
+	MATRIX;
+	SPIRAL;
+}display_m;
+
 typedef struct{
     char char_val;
     int brightness;
@@ -12,9 +17,9 @@ typedef struct{
     bool blink;
     short int color;
     short int bg_color;
-} attr;
+}attr;
 
-extern attr matrix[X_BOUND][Y_BOUND]
+extern attr matrix[X_BOUND][Y_BOUND];
 
 bool init_ui();
 void teardown_ui();
