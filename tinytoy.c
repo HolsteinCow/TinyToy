@@ -10,7 +10,7 @@
 #define TICK_DELAY 25000L
 
 void display_loop(){
-    init_display();
+	init_display();
 
     for(int i = 0; i < TEST_CYCLE; i++){
 		buffer_disp();

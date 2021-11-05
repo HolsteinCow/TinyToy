@@ -7,6 +7,7 @@
 typedef enum{ 
 	MATRIX;
 	SPIRAL;
+	SNOW;
 }display_m;
 
 typedef struct{
