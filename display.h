@@ -2,9 +2,10 @@
 #define __DISPLAY_H__
 
 void init_display();
-void clear_screen(); 
-void buffer_display();
+/*void clear_screen();*/
+void line_display();
 void gen_line();
-void show_display();
+void update_display();
+void active_m_init();
 
 #endif

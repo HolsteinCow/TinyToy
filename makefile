@@ -1,13 +1,16 @@
 CC=gcc
-CFLAGS=-g -o2 -std=c99 -Wall -pedantic 
+CFLAGS=-g -O2 -std=gnu99 -Wall -pedantic 
 LIBS=-lncurses -ltinfo
-DEPS=tinytoy.h display.h ui.h
+TARGET=tinytoy
+DEPS=display.h ui.h
 OBJ=tinytoy.o display.o ui.o
 
+all: $(TARGET)
+
 %.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
-tinytoy: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+	$(CC) -o $@ -c $< $(CFLAGS)
+$(TARGET): $(OBJ)
+	$(CC) $^ -o $@ $(CFLAGS) $(LIBS)
 .PHONY:
 	clean
 clean:
