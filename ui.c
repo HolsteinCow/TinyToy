@@ -15,8 +15,8 @@ bool init_ui(){
 
 	for(int x = 0; x < X_BOUND; x++){
 		for(int y = 0; y < Y_BOUND; y++){
-			matrix[x][y].char_val = 0;
-			matrix[x][y].brightness = 0;
+			matrix[x][y].char_val = '\0';
+			//matrix[x][y].brightness = 0;
 		}
 	}
 	
@@ -39,7 +39,7 @@ void teardown_ui(){
 void update_ui(){
 	for(int x = 0; x < X_BOUND; x++){
 		for(int y = 0; y < Y_BOUND; y++){
-			color_set(trail[matrix[x][y].brightness], NULL);
+			//color_set(trail[matrix[x][y].brightness], NULL);
 			mvaddch(y, x, matrix[x][y].char_val);
 		}
 	}
