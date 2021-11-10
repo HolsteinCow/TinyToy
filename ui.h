@@ -16,7 +16,7 @@ typedef enum{
 typedef struct{
     char char_val;
     bool color;
-	//bool highlight;
+	bool highlight;
     //bool blink;
 }attr;
 

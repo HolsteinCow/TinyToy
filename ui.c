@@ -6,6 +6,7 @@
 
 #define BLANK_CHAR 1
 #define GREEN_CHAR 2
+#define GREEN_HIGHLIGHT 3
 
 WINDOW *uiwindow = NULL;
 
@@ -34,6 +35,7 @@ bool init_ui(){
 
 	init_pair(BLANK_CHAR, COLOR_BLACK, COLOR_BLACK);
 	init_pair(GREEN_CHAR, COLOR_GREEN, COLOR_BLACK);
+	init_pair(GREEN_HIGHLIGHT, COLOR_WHITE, COLOR_GREEN);
 
 	return true;
 }
@@ -46,6 +48,12 @@ void teardown_ui(){
 void update_ui(){
 	for(int x = 0; x < X_BOUND; x++){
 		for(int y = 0; y < Y_BOUND; y++){
+			if(matrix[x][y].highlight){
+				attron(COLOR_PAIR(GREEN_HIGHLIGHT));
+				mvaddch(y, x, matrix[x][y].char_val);
+				attroff(COLOR_PAIR(GREEN_HIGHLIGHT));
+				continue;	
+			}
 			if(matrix[x][y].color){
 				attron(COLOR_PAIR(GREEN_CHAR));
 				mvaddch(y, x, matrix[x][y].char_val);

@@ -46,7 +46,16 @@ void gen_line(){
 			active[i].alive = true;
 			active[i].x = rand() % X_BOUND;
 			active[i].y = 0;
-			active[i].height = 5 + (rand() % 15);
+			active[i].height = 5 + (rand() % 21);
+			break;
+		}
+	}
+	for(int i = 0; i < LINES; i++){
+		if(active[i].alive == false){
+			active[i].alive = true;
+			active[i].x = rand() % X_BOUND;
+			active[i].y = 0;
+			active[i].height = 5 + (rand() % 21);
 			break;
 		}
 	}
