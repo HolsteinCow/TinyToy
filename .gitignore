@@ -1,3 +1,9 @@
 info/
 
 *.orig
+
+*.swp
+
+*.o
+
+tinytoy

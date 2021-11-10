@@ -15,12 +15,9 @@ typedef enum{
 
 typedef struct{
     char char_val;
-    int brightness;
-/*  bool highlight;
-    bool bold;
-    bool blink;
-    short int color;
-    short int bg_color;*/
+    bool color;
+	//bool highlight;
+    //bool blink;
 }attr;
 
 extern attr matrix[X_BOUND][Y_BOUND];

@@ -6,15 +6,15 @@
 #include <stdbool.h>
 #include "ui.h"
 #include "display.h"
-/*
-#define MATRIX_RANDOM_SPAWN_LINE_PROB 0.75
+
+#define MATRIX_RANDOM_SPAWN_LINE_PROB 0.8
 #define M_CHARACTER 'X'
 #define LINES 250
 
 typedef struct{
-	char r_char;
-	int x, y, brightness;
+	int x, y;
 	bool alive;
+	int height;
 }line;
 
 attr matrix[X_BOUND][Y_BOUND];
@@ -25,6 +25,8 @@ void active_m_init(){
 	srand((unsigned)time(&t));
 	for(int i = 0; i < LINES; i++){
 		active[i].alive = false;
+		active[i].x = 0;
+		active[i].y = 0;
 	}
 }
 
@@ -34,7 +36,8 @@ double gen_rand(){
 
 char gen_char(){
 	//returns random ascii character from range 33 to 126
-	return 33 + (rand() % 93);
+	int r = rand();
+	return (r == 0) ? 0 : 32 + (r % 94);
 }
 
 void gen_line(){
@@ -43,41 +46,38 @@ void gen_line(){
 			active[i].alive = true;
 			active[i].x = rand() % X_BOUND;
 			active[i].y = 0;
-			active[i].brightness = MAX_BRIGHTNESS;
-			active[i].r_char = gen_char();
-			return;
+			active[i].height = 5 + (rand() % 15);
+			break;
 		}
 	}
 }
 
-void buffer_display(){
+void pack_matrix(){
 	for(int i = 0; i < LINES; i++){
 		if(active[i].alive){
-			matrix[active[i].x][active[i].y].char_val = active[i].r_char;
-			matrix[active[i].x][active[i].y].brightness = active[i].brightness;
+			matrix[active[i].x][active[i].y].char_val = gen_char();
+			matrix[active[i].x][active[i].y].color = true;
 		}
+		
+		
 		if(active[i].y++ >= Y_BOUND - 1){
 			active[i].alive = false;
 		}
+		else{
+			matrix[active[i].x][active[i].y + 1].char_val = 0;
+			matrix[active[i].x][active[i].y + 1].color = false;
+			if(active[i].y < active[i].height)
+				continue;
+			matrix[active[i].x][active[i].y - active[i].height].char_val = 0;
+			matrix[active[i].x][active[i].y - active[i].height].color = false;
+
+		}
 	}
 }
 
-void update_logic(){
-
-}
-
 void display_cycle(){
-	if(gen_rand() < MATRIX_RANDOM_SPAWN_LINE_PROB){
+	if (gen_rand() < MATRIX_RANDOM_SPAWN_LINE_PROB)
 		gen_line();
-	}
-	buffer_display();
-	update_logic();
-}*/
-attr matrix[X_BOUND][Y_BOUND];
-
-void display_cycle(){
-	for(int y = 0; y < Y_BOUND; y++){
-		matrix[6][y].char_val = 'x';
-		matrix[6][y].brightness =  31;
-	}
+	
+	pack_matrix();
 }

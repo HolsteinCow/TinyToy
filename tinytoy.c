@@ -8,10 +8,14 @@
 #include "ui.h"
 #include "display.h"
 
-#define TEST_CYCLE 1000
-#define TICK_DELAY 50000L
+#define TEST_CYCLE 200
+#define TICK_DELAY 20000L
 
 int main(int argc, char **argv){
+	/*if(argc < 2){
+		printf("Usage: %s - ");
+		return EXIT_FAILURE;
+	}*/
 
 	if(!init_ui()){
 		fprintf(stderr ,"Error: init_ui() faliure, ui failed to initialize\n");
@@ -19,10 +23,12 @@ int main(int argc, char **argv){
 	}
 	//active_m_init();
 
-
-	for(int i = 0; i < TEST_CYCLE; i++){
+	for(;;){
 		display_cycle();
 		update_ui();
+		if(getch() > 0){
+			break;
+		}
 		usleep(TICK_DELAY);
 	}
 
