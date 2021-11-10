@@ -5,13 +5,25 @@ TARGET=tinytoy
 DEPS=display.h ui.h
 OBJ=tinytoy.o display.o ui.o
 
+ifeq ($(PREFIX),)
+	PREFIX := /usr/local
+endif
+
 all: $(TARGET)
 
 %.o: %.c $(DEPS)
 	$(CC) -o $@ -c $< $(CFLAGS)
 $(TARGET): $(OBJ)
 	$(CC) $^ -o $@ $(CFLAGS) $(LIBS)
-.PHONY:
-	clean
+
+.PHONY: clean
 clean:
-	-rm -f *.o tinytoy 
+	-rm -f *.o tinytoy
+
+.PHONY: install
+install: $(TARGET)
+	cp $< $(DESTDIR)$(PREFIX)/bin/
+
+.PHONY: UNINSTALL
+UNINSTALL:
+	-rm  $(DESTDIR)$(PREFIX)/bin/tinytoy
