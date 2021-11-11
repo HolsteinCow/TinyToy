@@ -66,20 +66,18 @@ void pack_matrix(){
 		if(active[i].alive){
 			matrix[active[i].x][active[i].y].char_val = gen_char();
 			matrix[active[i].x][active[i].y].color = true;
+			matrix[active[i].x][active[i].y].highlight = true;
 		}
-		
 		
 		if(active[i].y++ >= Y_BOUND - 1){
 			active[i].alive = false;
 		}
 		else{
-			matrix[active[i].x][active[i].y + 1].char_val = 0;
-			matrix[active[i].x][active[i].y + 1].color = false;
 			if(active[i].y < active[i].height)
 				continue;
 			matrix[active[i].x][active[i].y - active[i].height].char_val = 0;
 			matrix[active[i].x][active[i].y - active[i].height].color = false;
-
+			matrix[active[i].x][active[i].y - active[i].height].highlight = false;
 		}
 	}
 }

@@ -7,6 +7,7 @@
 #define BLANK_CHAR 1
 #define GREEN_CHAR 2
 #define GREEN_HIGHLIGHT 3
+#define UI_GREEN 154
 
 WINDOW *uiwindow = NULL;
 
@@ -35,9 +36,15 @@ bool init_ui(){
 
 	init_pair(BLANK_CHAR, COLOR_BLACK, COLOR_BLACK);
 	init_pair(GREEN_CHAR, COLOR_GREEN, COLOR_BLACK);
-	init_pair(GREEN_HIGHLIGHT, COLOR_WHITE, COLOR_GREEN);
+	init_pair(GREEN_HIGHLIGHT, COLOR_WHITE, UI_GREEN);
 
 	return true;
+}
+
+void pause_ui(){
+	nodelay(uiwindow, FALSE);
+	getch();
+	nodelay(uiwindow, TRUE);
 }
 
 void teardown_ui(){
@@ -52,6 +59,7 @@ void update_ui(){
 				attron(COLOR_PAIR(GREEN_HIGHLIGHT));
 				mvaddch(y, x, matrix[x][y].char_val);
 				attroff(COLOR_PAIR(GREEN_HIGHLIGHT));
+				matrix[x][y].highlight = false;
 				continue;	
 			}
 			if(matrix[x][y].color){

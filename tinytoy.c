@@ -21,12 +21,16 @@ int main(int argc, char **argv){
 		fprintf(stderr ,"Error: init_ui() faliure, ui failed to initialize\n");
 		return EXIT_FAILURE;
 	}
-	//active_m_init();
+	active_m_init();
 
 	for(;;){
 		display_cycle();
 		update_ui();
-		if(getch() > 0){
+		char c = getch();
+		if(c == 'p'){
+			pause_ui();
+		}
+		else if(c > 0){
 			break;
 		}
 		usleep(TICK_DELAY);

@@ -25,5 +25,6 @@ extern attr matrix[X_BOUND][Y_BOUND];
 bool init_ui();
 void teardown_ui();
 void update_ui();
+void pause_ui();
 
 #endif
