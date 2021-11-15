@@ -2,8 +2,8 @@ CC=gcc
 CFLAGS=-g -O2 -std=gnu99 -Wall -pedantic 
 LIBS=-lncurses -ltinfo --enable-ext-colors
 TARGET=tinytoy
-DEPS=display.h ui.h
-OBJ=tinytoy.o display.o ui.o
+DEPS=ui.h display.h
+OBJ=tinytoy.o ui.o display.o
 
 ifeq ($(PREFIX),)
 	PREFIX := /usr/local

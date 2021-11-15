@@ -9,7 +9,15 @@
 #define GREEN_HIGHLIGHT 3
 #define UI_GREEN 154
 
+attr matrix[X_BOUND][Y_BOUND];
+
 WINDOW *uiwindow = NULL;
+
+void gen_color_pairs(){
+	init_pair(BLANK_CHAR, COLOR_BLACK, COLOR_BLACK);
+	init_pair(GREEN_CHAR, COLOR_GREEN, COLOR_BLACK);
+	init_pair(GREEN_HIGHLIGHT, COLOR_WHITE, UI_GREEN);
+}
 
 bool init_ui(){
 	uiwindow = initscr();
@@ -33,25 +41,13 @@ bool init_ui(){
 		fprintf(stderr, "Error: your terminal does not support colors!\n");
 		return false;
 	}
-
-	init_pair(BLANK_CHAR, COLOR_BLACK, COLOR_BLACK);
-	init_pair(GREEN_CHAR, COLOR_GREEN, COLOR_BLACK);
-	init_pair(GREEN_HIGHLIGHT, COLOR_WHITE, UI_GREEN);
+	
+	gen_color_pairs();
 
 	return true;
 }
 
-void pause_ui(){
-	nodelay(uiwindow, FALSE);
-	getch();
-	nodelay(uiwindow, TRUE);
-}
-
-void teardown_ui(){
-	delwin(uiwindow);
-	endwin();
-}
-
+//refactor?
 void update_ui(){
 	for(int x = 0; x < X_BOUND; x++){
 		for(int y = 0; y < Y_BOUND; y++){
@@ -77,4 +73,46 @@ void update_ui(){
 		}
 	}
 	refresh();
+}
+
+int ui_loop(void (*init)(void), void (*cycle)(void), bool mode){
+	if(!init_ui()){
+		fprintf(stderr ,"Error: init_ui() faliure, ui failed to initialize\n");
+		return EXIT_FAILURE;
+	}
+	init();
+	
+	for(;;){
+		cycle();
+		update_ui();
+		char c = getch();
+		//pause
+		if(c == 'p' && mode){
+			nodelay(uiwindow, FALSE);
+			getch();
+			nodelay(uiwindow, TRUE);
+		}
+		//set to frame adv mode
+		else if(c == 'o' && mode){
+			nodelay(uiwindow, FALSE);
+			for(;;){
+				cycle();
+				update_ui();
+				char b = getch();
+				if(b == 'o')
+					break;
+			}
+			nodelay(uiwindow, TRUE);
+		}
+		//quit the program
+		else if(c > 0){
+			break;
+		}
+		usleep(TICK_DELAY);
+	}
+
+	//teardown process
+	delwin(uiwindow);
+	endwin();
+	return EXIT_SUCCESS;
 }

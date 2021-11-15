@@ -7,11 +7,7 @@
 #define X_BOUND 200
 #define Y_BOUND 100
 
-typedef enum{ 
-	MATRIX,
-	SPIRAL,
-	SNOW,
-}display_m;
+#define TICK_DELAY 20000L
 
 typedef struct{
     char char_val;
@@ -20,11 +16,9 @@ typedef struct{
     //bool blink;
 }attr;
 
-extern attr matrix[X_BOUND][Y_BOUND];
-
-bool init_ui();
-void teardown_ui();
-void update_ui();
-void pause_ui();
+bool init_ui(void);
+void update_ui(void);
+void gen_color_pairs(void);
+int ui_loop(void (*)(void), void (*)(void), bool);
 
 #endif

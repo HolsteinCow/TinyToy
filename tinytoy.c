@@ -7,35 +7,31 @@
 #include <ncurses.h>
 #include "ui.h"
 #include "display.h"
+//#include "tetris.h"
 
-#define TEST_CYCLE 200
-#define TICK_DELAY 20000L
+#define ENABLE_FRAME_PAUSE true
+#define DISABLE_FRAME_PAUSE false
 
 int main(int argc, char **argv){
-	/*if(argc < 2){
-		printf("Usage: %s - ");
-		return EXIT_FAILURE;
-	}*/
-
-	if(!init_ui()){
-		fprintf(stderr ,"Error: init_ui() faliure, ui failed to initialize\n");
-		return EXIT_FAILURE;
+	if(argc == 1){
+		return ui_loop(active_m_init, matrix_effect_cycle, ENABLE_FRAME_PAUSE);	
 	}
-	active_m_init();
-
-	for(;;){
-		display_cycle();
-		update_ui();
-		char c = getch();
-		if(c == 'p'){
-			pause_ui();
+	else{
+		char c = 'q';
+		if(argv[1][0] == '-'){
+			c = argv[1][1];
 		}
-		else if(c > 0){
-			break;
+		switch(c){
+			//case 't':
+				//return ui_loop(tetris_init, tetris_gameloop, DISABLE_FRAME_PAUSE);
+			case 'u':
+				return ui_loop(active_m_init, urand_effect_cycle, ENABLE_FRAME_PAUSE);
+			case 'h':
+				printf("TinyToy --- TinyToy v0.0.1c\n\nUsage: tinytoy [argument]\nNOTE: tinytoy only takes one argument\n\nArguments:\n\t\"no args\"\t\tMatrix effect\n\t-t\t\t\tTetris\n\t-h\t\t\tPrint help menu\n\nKeybinds:\n\tp\t\t\tPause screen (for matrix)\n\to\t\t\tFrame mode (press o again to return to normal mode)\n");
+				return EXIT_SUCCESS;
+			default:
+				fprintf(stderr, "Error: Use \"tinytoy -h\" for help");
+				return EXIT_FAILURE;
 		}
-		usleep(TICK_DELAY);
 	}
-
-	teardown_ui();
-	return EXIT_SUCCESS;
 }
