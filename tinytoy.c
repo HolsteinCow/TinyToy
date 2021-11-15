@@ -27,7 +27,7 @@ int main(int argc, char **argv){
 			case 'u':
 				return ui_loop(active_m_init, urand_effect_cycle, ENABLE_FRAME_PAUSE);
 			case 'h':
-				printf("TinyToy --- TinyToy v0.0.1c\n\nUsage: tinytoy [argument]\nNOTE: tinytoy only takes one argument\n\nArguments:\n\t\"no args\"\t\tMatrix effect\n\t-t\t\t\tTetris\n\t-h\t\t\tPrint help menu\n\nKeybinds:\n\tp\t\t\tPause screen (for matrix)\n\to\t\t\tFrame mode (press o again to return to normal mode)\n");
+				printf("TinyToy --- TinyToy v0.0.1c\n\nUsage: tinytoy [argument]\nNOTE: tinytoy only takes one argument\n\nArguments:\n\t\"no args\"\t\tMatrix effect\n\t-t\t\t\tTetris\n\t-h\t\t\tPrint help menu\n\t-u\t\t\turandom effect\n\nKeybinds:\n\tp\t\t\tPause screen (for matrix)\n\to\t\t\tFrame mode (press o again to return to normal mode)\n");
 				return EXIT_SUCCESS;
 			default:
 				fprintf(stderr, "Error: Use \"tinytoy -h\" for help");
