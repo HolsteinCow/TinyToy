@@ -2,10 +2,14 @@
 #define __DISPLAY_H__
 
 typedef struct{
-	int x, y;
+	int x, y, life;
 	bool alive;
-	int height;
 }line;
+
+typedef struct{
+	int x, tick;
+	bool on;
+}rem;
 
 void active_m_init(void);
 double gen_rand(void);

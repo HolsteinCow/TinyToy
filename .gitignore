@@ -1,9 +1,6 @@
 info/
-
 *.orig
-
 *.swp
-
 *.o
-
+*.sh
 tinytoy

@@ -4,8 +4,8 @@
 #define MAX_BRIGHTNESS 14
 #define MIN_BRIGHTNESS 4
 
-#define X_BOUND 200
-#define Y_BOUND 100
+#define X_BOUND 80
+#define Y_BOUND 40
 
 #define TICK_DELAY 20000L
 

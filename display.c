@@ -14,6 +14,7 @@
 
 extern attr matrix[X_BOUND][Y_BOUND];
 line active[LINES];
+rem rem_list[LINES];
 
 void active_m_init(){
 	time_t t;
@@ -23,6 +24,9 @@ void active_m_init(){
 		active[i].alive = false;
 		active[i].x = 0;
 		active[i].y = 0;
+		rem_list[i].x = 0;
+		rem_list[i].tick = 0;
+		rem_list[i].on = false;
 	}
 }
 
@@ -36,14 +40,12 @@ char gen_char(){
 }
 
 void gen_line(){
-	int l = LINES_PER_SPAWN;
 	for(int i = 0; i < LINES; i++){
-		if(active[i].alive == false && l){
+		if(active[i].alive == false){
 			active[i].alive = true;
 			active[i].x = rand() % X_BOUND;
 			active[i].y = 0;
-			active[i].height = 5 + (rand() % 21);
-			l--;
+			active[i].life = 2 + (rand() % 10);
 			break;
 		}
 	}
@@ -59,13 +61,22 @@ void pack_matrix(){
 		
 		if(active[i].y++ >= Y_BOUND - 1){
 			active[i].alive = false;
+			rem_list[i].on = true;
+			rem_list[i].x = active[i].x;
+			rem_list[i].tick = active[i].life;
 		}
-		else{
-			if(active[i].y < active[i].height)
-				continue;
-			matrix[active[i].x][active[i].y - active[i].height].char_val = 0;
-			matrix[active[i].x][active[i].y - active[i].height].color = false;
-			matrix[active[i].x][active[i].y - active[i].height].highlight = false;
+		else if(active[i].y >= active[i].life){
+			matrix[active[i].x][active[i].y - (active[i].life)].color = false;
+			matrix[active[i].x][active[i].y - (active[i].life)].highlight = false;
+		}
+		if(rem_list[i].tick == 0){
+			rem_list[i].on = false;
+			continue;
+		}
+		if(rem_list[i].on){	
+			matrix[rem_list[i].x][Y_BOUND - (rem_list[i].tick)].color = false;
+			matrix[rem_list[i].x][Y_BOUND - (rem_list[i].tick)].highlight = false;
+			rem_list[i].tick--;
 		}
 	}
 }	
