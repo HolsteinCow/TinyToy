@@ -45,7 +45,7 @@ void gen_line(){
 			active[i].alive = true;
 			active[i].x = rand() % X_BOUND;
 			active[i].y = 0;
-			active[i].life = 2 + (rand() % 10);
+			active[i].life = 2 + (rand() % 16);
 			break;
 		}
 	}
@@ -58,7 +58,7 @@ void pack_matrix(){
 			matrix[active[i].x][active[i].y].color = true;
 			matrix[active[i].x][active[i].y].highlight = true;
 		}
-		
+
 		if(active[i].y++ >= Y_BOUND - 1){
 			active[i].alive = false;
 			rem_list[i].on = true;
